@@ -3,8 +3,6 @@ name: MuleSoft CI
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
 
 jobs:
   build:
@@ -17,9 +15,9 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '11'
+          distribution: temurin
+          java-version: 11
 
       - name: Build with Maven
-        working-directory: ./pipeline-test
-        run: mvn clean install -DskipTests=false
+        working-directory: "test mule pipeline"
+        run: mvn clean install
