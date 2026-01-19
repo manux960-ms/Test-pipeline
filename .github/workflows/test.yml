@@ -1,17 +1,24 @@
-name: Pipeline Studio
+name: MuleSoft CI
 
-on: [push]
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Say Hello
-        run: echo "Hello — pipeline attiva!"
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '11'
 
-      - name: Simulate test
-        run: echo "1 + 1 = $((1+1))"
+      - name: Build with Maven
+        run: mvn clean install -DskipTests=false
